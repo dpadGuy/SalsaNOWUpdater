@@ -16,6 +16,10 @@ namespace SalsaNOWUpdater
         {
             string jsonUrl = "https://pub-b8de31eeed5042ee8a9182cdf910ab07.r2.dev/jsons/update.json";
 
+            // Making sure no SSL/TLS issues occur
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, errors) => true;
+
             using (WebClient webClient = new WebClient())
             {
                 string json = await webClient.DownloadStringTaskAsync(jsonUrl);
